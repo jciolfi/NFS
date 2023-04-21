@@ -1,8 +1,6 @@
 # CS5600_practicum2
 CS5600 Practicum 2 Spring 2023
 
-By John Ciolfi and James Florez
-
 # How to run
 - Set the flash drive paths in `config/drive_path_settings.txt`. The paths are separated by a newline with no other extra whitespace.
 - Set the server IP address and port number in `config/connection_settings.txt`. The port number comes first and is separated from the IP address by a newline with no other extra whitespace.
@@ -33,3 +31,5 @@ By John Ciolfi and James Florez
 - To implement multithreading, each connection is wrapped in a thread, and the request is handled with a call to parse_request. There is a lock that must be acquired before parsing a request to ensure consistency and that no files get corrupted by race conditions. This lock is released after parse_request, and the thread can then work on returning a response to the client.
 
 
+# Self-Evaluation
+- Link: https://1drv.ms/x/s!Ahg-kPihTjJu1ga3LayAwlP8kH3F?e=FOoTwr

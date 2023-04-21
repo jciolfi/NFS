@@ -265,12 +265,24 @@ void parse_fget(int argc, char *argv[], int socket_desc) {
     if (strcmp(argv[1], "GET") == 0) {
         send_GET(argc, argv, request_length, socket_desc);
     } else if (strcmp(argv[1], "INFO") == 0) {
+        if (argc > 3) {
+            printf("Too many arguments supplied to INFO.");
+            exit(-1);
+        }
         send_request(argv, request_length, socket_desc);
     } else if (strcmp(argv[1], "MD") == 0) {
+        if (argc > 3) {
+            printf("Too many arguments supplied to MD.");
+            exit(-1);
+        }
         send_request(argv, request_length, socket_desc);
     } else if (strcmp(argv[1], "PUT") == 0) {
         send_PUT(argc, argv, request_length, socket_desc);
     } else if (strcmp(argv[1], "RM") == 0) {
+        if (argc > 3) {
+            printf("Too many arguments supplied to RM.");
+            exit(-1);
+        }
         send_request(argv, request_length, socket_desc);
     } else {
         printf("Unsupported action: '%s'\n", argv[1]);

@@ -149,6 +149,7 @@ void substring(char* str, unsigned long start_idx, unsigned long end_idx, char* 
         return;
     }
 
+    // copy substring into buffer.
     int length = end_idx - start_idx;
     strncpy(substr, str + start_idx, length);
     substr[length] = '\0';

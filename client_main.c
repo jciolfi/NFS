@@ -15,7 +15,7 @@
 
 int main(int argc, char *argv[]) {
     // Process the command line input.
-    if (argc < 3) {
+    if (argc < 3 || argc > 4) {
         printf("Invalid command line input.\nUsage: ./fget [GET| INFO | PUT | MD | RM] [options]\n");
         return -1;
     }

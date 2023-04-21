@@ -504,18 +504,19 @@ void handle_INFO(char* file_path, response_t* resp, char* drive1_path, char* dri
 
     // get file owner, permissions
     struct stat file_stat;
-    int owner_id;
-    time_t last_modified;
-    mode_t permissions;
     
     if (stat(file_path, &file_stat) == 0) {
-        size_t data_size = sizeof(owner_id) + sizeof(last_modified) + sizeof(permissions) + sizeof(file_size) + 64;
+        int owner_id = file_stat.st_uid;
+        mode_t permissions = file_stat.st_mode;
+        time_t last_modified = file_stat.st_mtime;
+        struct tm *tm_info = localtime(&last_modified);
+        char date_str[24];
+        strftime(date_str, sizeof(date_str), "%Y-%m-%d %H:%M:%S", tm_info);
+
+        size_t data_size = sizeof(owner_id) + sizeof(date_str) + sizeof(permissions) + sizeof(file_size) + 64;
         char* data = malloc(data_size);
-        owner_id = file_stat.st_uid;
-        last_modified = file_stat.st_mtime;
-        permissions = file_stat.st_mode;
-        sprintf(data, "size=%ld, owner UID=%d, last modified=%ld, permissions=%o", 
-            file_size, owner_id, last_modified, permissions & 07777);
+        sprintf(data, "size=%ld B, owner UID=%d, last modified=%s, permissions=%o", 
+            file_size, owner_id, date_str, permissions & 07777);
         build_response_t(resp, 200, "Successfuly found INFO for file.", data, data_size);
     } else {
         size_t data_size = sizeof(file_size) + 1;
