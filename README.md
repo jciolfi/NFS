@@ -1,5 +1,4 @@
-# CS5600_practicum2
-CS5600 Practicum 2 Spring 2023
+# CS5600_practicumII - John Ciolfi
 
 # How to run
 - Set the flash drive paths in `config/drive_path_settings.txt`. The paths are separated by a newline with no other extra whitespace.
