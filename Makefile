@@ -11,7 +11,7 @@ client: client_handler.h client_handler.c common.h common.c
 	gcc $(CFLAGS) client_main.c client_handler.c common.c -o fget
 
 clean:
-	rm -f fget fserver server_test server_test2
+	rm -f fget fserver server_test multi_test temp*.txt
 	rm -f drive_1/newfile.txt drive_2/newfile.txt journal/server_journal.txt
 	rm -f Makefile_copy temp_file.txt
 	touch journal/server_journal.txt

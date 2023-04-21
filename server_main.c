@@ -15,7 +15,7 @@
 #include <pthread.h>
 #include "server_handler.h"
 
-#define MAX_CLIENTS 4
+#define MAX_CLIENTS 8
 
 
 // server descriptor and IP addresses to close/free on shutdown.
@@ -48,6 +48,7 @@ void handle_signal(int sig) {
         close(server_desc);
         free(server_ip_address);
         free(server_port_string);
+        pthread_mutex_destroy(&lock);
         printf("\n\nExited safely.\n");
         exit(0);
     }
@@ -79,14 +80,14 @@ void* handle_client(void* data) {
         return NULL;
     }
 
+    // sleep to emphasize multithreading.
+    usleep(client_delay * 1000000);
+
     // Process the client request.
     response_t resp;
     pthread_mutex_lock(&lock);
     parse_request(client_request, &resp, drive1_path, drive2_path);
     pthread_mutex_unlock(&lock);
-
-    // sleep to emphasize multithreading.
-    usleep(client_delay * 1000000);
 
     char* resp_serialized = serialize_response_t(&resp);
     unsigned long* size_ptr = (unsigned long*) resp_serialized;
@@ -127,6 +128,9 @@ int main(int argc, char *argv[]) {
     server_port_string = malloc(sizeof(char) * 10);
     server_desc = bind_server_socket(server_ip_address, server_port_string);
     if (server_desc < 0) {
+        free(server_ip_address);
+        free(server_port_string);
+        printf("Could not bind to server socket: %s\n", strerror(errno));
         return -1;
     }
 
@@ -135,6 +139,9 @@ int main(int argc, char *argv[]) {
 
     // Listen for clients.
     if (listen(server_desc, MAX_CLIENTS) < 0) {
+        free(server_ip_address);
+        free(server_port_string);
+        close(server_desc);
         printf("Server error while listening.\n");
         return -1;
     }

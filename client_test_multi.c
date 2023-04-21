@@ -7,10 +7,9 @@
 #include <stdlib.h>
 #include "client_handler.h"
 
-#define NUM_THREADS 4
+#define NUM_THREADS 8
 
 void* put_file1(void* data) {
-    usleep(1000);
     int thread_idx = *(int*)data;
 
     // Connect to the server using TCP sockets.
@@ -24,8 +23,25 @@ void* put_file1(void* data) {
     printf("Thread %d successfully connected.\n", thread_idx);
 
     // handle request.
-    char* args[] = {"./fget", "PUT", "file1.txt"};
-    parse_fget(3, args, socket_desc);
+    if (thread_idx % 2 == 0) {
+        // update file for this thread.
+        char file_name[16];
+        sprintf(file_name, "temp%d.txt", thread_idx);
+        FILE* file = fopen(file_name, "w");
+        if (file == NULL) {
+            printf("Couldn't open %s\n", file_name);
+            return NULL;
+        }
+        fprintf(file, "UPDATED BY THREAD ** %d **", thread_idx);
+        fclose(file);
+
+        char* args1[] = {"./fget", "PUT", file_name, "file1.txt"};
+        parse_fget(4, args1, socket_desc);
+    } else {
+        usleep(600);
+        char* args2[] = {"./fget", "GET", "file1.txt"};
+        parse_fget(3, args2, socket_desc);
+    }
 
     free(server_ip_address);
     free(server_port_string);
