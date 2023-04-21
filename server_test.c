@@ -6,6 +6,12 @@
 #include <unistd.h>
 #include <stdbool.h>
 
+/**
+ * Check if given filepaths exist, use for checking state of file on both drives.
+ * 
+ * @param filepath1 the path for drive1.
+ * @param filepath2 the path for drive2.
+*/
 void exists_on_both_drives(char* filepath1, char* filepath2) {
     bool exists1 = access(filepath1, F_OK) == 0;
     bool exists2 = access(filepath2, F_OK) == 0;
