@@ -539,7 +539,7 @@ void handle_MD(char* dir_path, response_t* resp, char* original_request, char* d
         create_journal_entry(original_request, 1);
         build_response_t(resp, 201, "Successfully created directory on replica 2.", NULL, 0);
     } else {
-        build_response_t(resp, 500, "Unable to create directory.", NULL, 0);
+        build_response_t(resp, 400, "Unable to create directory.", NULL, 0);
     }
 }
 
@@ -584,7 +584,7 @@ void handle_RM(char* path, response_t* resp, char* original_request, char* drive
         create_journal_entry(original_request, 1);
         build_response_t(resp, 201, "Successfully removed item on replica 2.", NULL, 0);
     } else {
-        build_response_t(resp, 500, "Could not remove item.", NULL, 0);
+        build_response_t(resp, 404, "Could not remove item.", NULL, 0);
     }
 }
 
