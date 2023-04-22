@@ -469,6 +469,7 @@ void handle_GET(char* file_path, response_t* resp, char* drive1_path, char* driv
     // open file on drive 1 (the main drive).
     FILE* file = open_file(file_path, drive1_path, drive2_path);
     if (file == NULL) {
+        fclose(file);
         build_response_t(resp, 404, "Could not find file to GET.", NULL, 0);
         return;
     }

@@ -178,6 +178,7 @@ void send_PUT(int argc, char *argv[], int request_length, int socket_desc) {
     fsend(socket_desc, server_request, sizeof(server_request));
 
     // get response.
+    fclose(file);
     char server_response[SERVER_RESPONSE_SIZE];
     response_t resp;
     freceive(socket_desc, server_response, &resp);

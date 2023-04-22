@@ -1,5 +1,7 @@
 # CS5600_practicumII - John Ciolfi
 
+Note: I was in a group with James Florez, but I have decided to dissolve our pair.
+
 # How to run
 - Set the flash drive paths in `config/drive_path_settings.txt`. The paths are separated by a newline with no other extra whitespace.
 - Set the server IP address and port number in `config/connection_settings.txt`. The port number comes first and is separated from the IP address by a newline with no other extra whitespace.
