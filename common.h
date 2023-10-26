@@ -1,10 +1,3 @@
-/*
-*  common.h / Assignment: Practicum 2
-*
-*  James Florez and John Ciolfi / CS5600 / Northeastern University
-*  Spring 2023 / Apr 9, 2023
-*/
-
 #ifndef COMMON_H
 #define COMMON_H
 

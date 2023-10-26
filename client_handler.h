@@ -1,10 +1,3 @@
-/*
-*  client_handler.h / Assignment: Practicum 2
-*
-*  James Florez and John Ciolfi / CS5600 / Northeastern University
-*  Spring 2023 / Apr 9, 2023
-*/
-
 #ifndef CLIENT_HANDLER_H
 #define CLIENT_HANDLER_H
 

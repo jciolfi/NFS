@@ -1,10 +1,3 @@
-/*
-*  server_handler.h / Assignment: Practicum 2
-*
-*  James Florez and John Ciolfi / CS5600 / Northeastern University
-*  Spring 2023 / Apr 9, 2023
-*/
-
 #ifndef SERVER_HANDLER_H
 #define SERVER_HANDLER_H
 

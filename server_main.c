@@ -1,10 +1,3 @@
-/*
-*  server_main.c / Assignment: Practicum 2
-*
-*  James Florez and John Ciolfi / CS5600 / Northeastern University
-*  Spring 2023 / Apr 9, 2023
-*/
-
 #include <stdio.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
