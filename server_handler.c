@@ -396,6 +396,7 @@ void parse_request(char* request, response_t* resp, char* drive1_path, char* dri
 
     // determine appropriate handler, extract path for request.
     switch (action) {
+        // GET and return file to client
         case GET: {
             int action_len = strlen("GET");
             char file_path[strlen(request) - action_len];
@@ -403,6 +404,7 @@ void parse_request(char* request, response_t* resp, char* drive1_path, char* dri
             handle_GET(file_path, resp, drive1_path, drive2_path);
             break;
         }
+        // provide info for a file
         case INFO: {
             int action_len = strlen("INFO");
             char file_path[strlen(request) - action_len];
@@ -410,6 +412,7 @@ void parse_request(char* request, response_t* resp, char* drive1_path, char* dri
             handle_INFO(file_path, resp, drive1_path, drive2_path);
             break;
         }
+        // create directory on file store
         case MD: {
             int action_len = strlen("MD");
             char dir_path[strlen(request) - action_len];
@@ -417,6 +420,7 @@ void parse_request(char* request, response_t* resp, char* drive1_path, char* dri
             handle_MD(dir_path, resp, request, drive1_path, drive2_path);
             break;
         }
+        // PUT file from client to file store
         case PUT: {
             int action_len = strlen("PUT");
 
@@ -445,6 +449,7 @@ void parse_request(char* request, response_t* resp, char* drive1_path, char* dri
             }
             break;
         }
+        // remove file in file store
         case RM: {
             int action_len = strlen("RM");
             char file_path[strlen(request) - action_len];
