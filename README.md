@@ -1,4 +1,4 @@
-# CS5600_practicumII - John Ciolfi
+# Network File System (NFS)
 
 Note: I was in a group with James Florez, but I have decided to dissolve our pair.
 
@@ -30,7 +30,3 @@ Note: I was in a group with James Florez, but I have decided to dissolve our pai
 - The server parses the request to find the action (GET, INFO, MD, PUT, RM) and also delegates the request to the corresponding handler. Write operations are applied to both drives, and if both fail, an error response will be generated. If one fails and one succeeds, a success response will be generated with a message explaining which drive succeeded. For read operations, the first drive is checked, and if it is up, then it is read from. If it is down, the second drive will be used if it is up.
 - To achieve consistency between the two replica drives the journaling strategy is used. Journal entries are created only for write operations (PUT, MD, RM) when one of the drives performed the operation but the other did not. If both drives are not operational, the client is told to try again later. The index of the drive that was unable to perform the operation is written to a new line in `journal/server_journal.txt` followed by the original client request. Every time an operation is performed the journal is first read to see if it needs to be processed. If possible all the operations will be performed and the journal will be cleared. If the journal only contains operations for a single drive and that drive is still disconnected new operations are permitted and recorded. If the journal contains operations for both drives and they fail to be performed the client will not be allowed to make new requests because the drives are in an inconsistent state.
 - To implement multithreading, each connection is wrapped in a thread, and the request is handled with a call to parse_request. There is a lock that must be acquired before parsing a request to ensure consistency and that no files get corrupted by race conditions. This lock is released after parse_request, and the thread can then work on returning a response to the client.
-
-
-# Self-Evaluation
-- Link: https://1drv.ms/x/s!Ahg-kPihTjJu1ga3LayAwlP8kH3F?e=FOoTwr
